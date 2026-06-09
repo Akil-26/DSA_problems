@@ -1,0 +1,25 @@
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        def bt(i,j,idx):
+            if idx == len(word):
+                return True
+            if not (0<=i<len(board) and 0<=j<len(board[0])):
+                return False
+            if board[i][j] != word[idx]:
+                return False
+            tmp = board[i][j]
+            board[i][j] = "."
+            if bt(i+1,j,idx+1):
+                return True
+            if bt(i-1,j,idx+1):
+                return True
+            if bt(i,j+1,idx+1):
+                return True
+            if bt(i,j-1,idx+1):
+                return True
+            board[i][j] = tmp
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if bt(i,j,0):
+                    return True
+        return False
